@@ -7,9 +7,12 @@ Library     EyesLibrary       runner=web_ufg    config=applitools.yaml
 Test Setup        Setup
 Test Teardown     Teardown
 
-
+*** Variables ***
+#Declare varables and lists
+${LOGIN-BUTTON}   //*[@id="navbar"]/ul/li[2]/a
+@{LOGIN-Credentials-GUEST}   hogap65094@zamaneta.com   1234
 *** Keywords ***
-# For setup, load the demo site's login page and open Eyes to start visual testing.
+# For setup, load the site main page and open Eyes to start visual testing.
 Setup
     Open Browser    http://hotel-v3.progmasters.hu   headlesschrome
     Eyes Open
@@ -21,16 +24,16 @@ Teardown
 
 
 *** Test Cases ***
-# Login
+# Login-guest
 
-Log into account
-    Click Button      //*[@id="navbar"]/ul/li[2]/a
+Log into guest account
+    Click Element      ${LOGIN-BUTTON}
     # Verify the full login page loaded correctly.
     Eyes Check Window    Login Page     Fully
 
     # Perform login.
-    Input Text        //*[@id="email"]   hogap65094@zamaneta.com
-    Input Text        //*[@id="password"]   1234
+    Input Text        //*[@id="email"]   ${LOGIN-Credentials-GUEST}[0]
+    Input Text        //*[@id="password"]   ${LOGIN-Credentials-GUEST}[1]
     Click Element     //*[@id="loginMember"]/div[3]/div/button
 
     # Verify the full main page loaded correctly.

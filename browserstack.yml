@@ -2,13 +2,13 @@ userName: benjaminkurucz_HlCPLo
 accessKey: VKzZxJQY87p2mvHRLTVz
 platforms:
   - os: Windows
-    osVersion: 11
-    browserName: Chrome
-    browserVersion: latest
-  - os: Windows
-    osVersion: 11
-    browserName: Edge
-    browserVersion: 115.0
+    osVersion: 10
+    browserName: edge
+    browserVersion: 110
+  - deviceName: Samsung Galaxy S23 Ultra
+    osVersion: 13.0
+    browserName: chrome
+    deviceOrientation: portrait
   - os: OS X
     osVersion: Big Sur
     browserName: Safari

@@ -3,4 +3,3 @@ describe('template spec', () => {
     cy.visit('http://hotel-v3.progmasters.hu')
   })
 })
-//https://example.cypress.io

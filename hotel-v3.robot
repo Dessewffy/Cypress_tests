@@ -8,7 +8,7 @@ Test Setup        Setup
 Test Teardown     Teardown
 
 *** Variables ***
-#Declare varables and lists
+#Declare variables and lists.
 ${LOGIN-BUTTON}   //*[@id="navbar"]/ul/li[2]/a
 @{LOGIN-Credentials-GUEST}   hogap65094@zamaneta.com   1234
 *** Keywords ***

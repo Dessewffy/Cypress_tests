@@ -35,6 +35,7 @@ Log into guest account
     Input Text        //*[@id="email"]   ${LOGIN-Credentials-GUEST}[0]
     Input Text        //*[@id="password"]   ${LOGIN-Credentials-GUEST}[1]
     Click Element     //*[@id="loginMember"]/div[3]/div/button
+    Capture Page Screenshot
 
     # Verify the full main page loaded correctly.
     # This snapshot uses LAYOUT match level to avoid differences in closing time text.

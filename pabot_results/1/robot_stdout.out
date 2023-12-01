@@ -1,0 +1,17 @@
+
+12:03:37 [browserstack_sdk.__init__][INFO] - Setting up for Browserstack, using framework: robot
+==============================================================================
+Demo                                                                          
+==============================================================================
+hotel-v3                                                              
+12:03:38 [browserstack_sdk.__init__][INFO] - Completed setup!
+| PASS |
+------------------------------------------------------------------------------
+Demo                                                                  | PASS |
+1 test, 1 passed, 0 failed
+==============================================================================
+Output:  C:\Users\benja\Documents\GitHub\test\pabot_results\1\output.xml
+
+12:03:45 [browserstack_sdk.__init__][INFO] - Handling session close
+
+12:03:47 [browserstack_sdk.__init__][INFO] - All done!

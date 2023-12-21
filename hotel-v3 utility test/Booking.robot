@@ -18,3 +18,4 @@ hotel-v3 guest login
     Input Text        //*[@id="password"]   ${LOGIN-Credentials-GUEST}[1]
     Click Element     //*[@id="loginMember"]/div[3]/div/button
     Capture Page Screenshot
+    

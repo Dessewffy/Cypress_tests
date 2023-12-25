@@ -5,7 +5,7 @@ const numberOfBeds = 2
 const roomarea = 50
 const pricePerNight = 1500
 const description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-
+const imgURL = 'https://www.keparuhaz.hu/images/tmp/700/products/87/5387.jpg'
 
 
 
@@ -40,7 +40,7 @@ describe('AddNewHotelRoom', () => {
       cy.get('#description')
       .type(description)
       cy.get('#roomImageUrl')
-      .type('https://www.keparuhaz.hu/images/tmp/700/products/87/5387.jpg')
+      .type(imgURL)
       cy.get('.form-group [type="checkbox"]').then((checkboxes) => {
         // Az elemek számának meghatározása
         const numCheckboxes = checkboxes.length;
@@ -60,11 +60,17 @@ describe('AddNewHotelRoom', () => {
       cy.get('.btn.btn-primary.my-buttons')
       .should('not.be.disabled')
       .click();
+    //Szoba létrejöttének ellenőrzése
+    cy.get('img').should('have.attr', 'src', imgURL)
+    .should('have.css', 'opacity', '0')
+    .should('have.css', 'position', 'absolute')
+  
+    /*
       //Szoba törlése
       cy.get('.btn.btn-danger.btn-sm')
       .click()
-      cy.get('.btn.btn-primary')
-      .click()
-  
+      cy.get('.btn.btn-primary').eq(2).click()
+
+  */
     })
 })

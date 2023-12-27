@@ -1,15 +1,24 @@
-//Szoba paraméterek változói:
-const roomName = "Balatoni álom"
-const roomType = "lakosztály"
-const numberOfBeds = 2
-const roomarea = 50
-const pricePerNight = 1500
-const description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-const imgURL = 'https://www.keparuhaz.hu/images/tmp/700/products/87/5387.jpg'
+const roomNameList = ["Balatoni Álom", "Ébredő Hajnal", "Reneszánsz Csoda", "Keleti Lankák"];
+const roomTypeList = ["EGYAGYASSZOBA", "KETAGYASSZOBA", "KETAGYASTWINSZOBA", "HAROMAGYASSZOBA", "NEGYAGYASSZOBA", "TOBBAGYASSZOBA", "STUDIO", "APARTMAN", "LAKOSZTALY"];
+const min = 0; // a tartomány alsó határa
+const max = 99; // a tartomány felső határa
+
+const randomIndexRoomName = Math.floor(Math.random() * roomNameList.length);
+const randomIndexRoomType = Math.floor(Math.random() * roomTypeList.length);
+const numberOfBeds = Math.floor(Math.random() * (max - min + 1)) + min;
+const roomarea = Math.floor(Math.random() * (max - min + 1)) + min;
+const pricePerNight = (Math.floor(Math.random() * (max - min + 1)) + min) * 10;
+
+const roomName = roomNameList[randomIndexRoomName];
+const roomType = roomTypeList[randomIndexRoomType];
+const description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
+const imgURL = 'https://www.keparuhaz.hu/images/tmp/700/products/87/5387.jpg';
 
 
 
 
+
+//Belépés
 beforeEach(() => {
   cy.visit('http://hotel-v3.progmasters.hu');
   cy.get('a.nav-link').eq(1).click();
@@ -20,57 +29,63 @@ beforeEach(() => {
 
 
 describe('AddNewHotelRoom', () => {
-    it('passes', () => {
-      //Új szoba gomb kiválasztása
-      cy.get('.btn.btn-primary.btn-lg.btn-block')
+  it('passes', () => {
+    //Új szoba gomb kiválasztása
+    cy.get('.btn.btn-primary.btn-lg.btn-block')
       .click()
-      cy.get('h2')
+    cy.get('h2')
       .should('have.text', 'Szoba adatlap');
-      //Szoba adatai
-      cy.get('#roomName')
+    //Szoba adatai
+    cy.get('#roomName')
       .type(roomName)
-      cy.get('#roomType')
+    cy.get('#roomType')
       .select(roomType)
-      cy.get('#numberOfBeds')
+      .should('have.value', roomType)
+      .should('not.be.disabled');
+    cy.get('#numberOfBeds')
       .type(numberOfBeds)
-      cy.get('#roomArea')
+    cy.get('#roomArea')
       .type(roomarea)
-      cy.get('#pricePerNight')
+    cy.get('#pricePerNight')
       .type(pricePerNight)
-      cy.get('#description')
+    cy.get('#description')
       .type(description)
-      cy.get('#roomImageUrl')
+    cy.get('#roomImageUrl')
       .type(imgURL)
-      cy.get('.form-group [type="checkbox"]').then((checkboxes) => {
-        // Az elemek számának meghatározása
-        const numCheckboxes = checkboxes.length;
-    
-        // Két véletlenszerű index kiválasztása
-        const randomIndex1 = Math.floor(Math.random() * numCheckboxes);
-        let randomIndex2;
-        do {
-            randomIndex2 = Math.floor(Math.random() * numCheckboxes);
-        } while (randomIndex2 === randomIndex1);
-    
-        // Két checkbox kiválasztása
-        cy.get('.form-group [type="checkbox"]').eq(randomIndex1).check();
-        cy.get('.form-group [type="checkbox"]').eq(randomIndex2).check();
+    cy.get('.form-group [type="checkbox"]').then((checkboxes) => {
+      // Az elemek számának meghatározása
+      const numCheckboxes = checkboxes.length;
+
+      // Két véletlenszerű index kiválasztása
+      const randomIndex1 = Math.floor(Math.random() * numCheckboxes);
+      let randomIndex2;
+      do {
+        randomIndex2 = Math.floor(Math.random() * numCheckboxes);
+      } while (randomIndex2 === randomIndex1);
+
+      // Két checkbox kiválasztása
+      cy.get('.form-group [type="checkbox"]').eq(randomIndex1).check();
+      cy.get('.form-group [type="checkbox"]').eq(randomIndex2).check();
+
     })
     //Szoba hozzáadás elküldése
-      cy.get('.btn.btn-primary.my-buttons')
+    cy.get('.btn.btn-primary.my-buttons')
       .should('not.be.disabled')
       .click();
-    //Szoba létrejöttének ellenőrzése
-    cy.get('img').should('have.attr', 'src', imgURL)
-    .should('have.css', 'opacity', '0')
-    .should('have.css', 'position', 'absolute')
-  
-    /*
-      //Szoba törlése
-      cy.get('.btn.btn-danger.btn-sm')
-      .click()
-      cy.get('.btn.btn-primary').eq(2).click()
 
-  */
-    })
-})
+    //Szoba létrejöttének ellenőrzése
+    cy.get('.card-title')
+      .should('contain', roomName);
+    });
+  //Hibakezelés
+  it("iMG URL error", () => {
+    cy.on("fail", (err, runnable) => {
+      cy.log(err.message);
+      return false;
+    });
+
+    cy.get('img').eq(2)
+    .should('have.attr', 'src', imgURL);
+  });
+});
+

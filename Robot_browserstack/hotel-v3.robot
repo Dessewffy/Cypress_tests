@@ -11,6 +11,7 @@ Test Teardown     Teardown
 #Declare variables and lists. LOGIN-Credentials are in a list.
 ${LOGIN-BUTTON}   //*[@id="navbar"]/ul/li[2]/a
 @{LOGIN-Credentials-GUEST}   hogap65094@zamaneta.com   1234
+@{Login-Credentials-Owner}   ribonot606@anawalls.com   1234
 *** Keywords ***
 # For setup, load the site main page and open Eyes to start visual testing.
 Setup
@@ -40,3 +41,21 @@ Log into guest account
     # Verify the full main page loaded correctly.
     # This snapshot uses LAYOUT match level to avoid differences in closing time text.
     Eyes Check Window    Main Page    Fully    Match Level  LAYOUT
+
+Log into owner account
+    Click Element      ${LOGIN-BUTTON}
+    # Verify the full login page loaded correctly.
+    Eyes Check Window    Login Page     Fully
+
+    # Perform login.
+    Input Text        //*[@id="email"]   ${LOGIN-Credentials-Owner}[0]
+    Input Text        //*[@id="password"]   ${Login-Credentials-Owner}[1]
+    Click Element     //*[@id="loginMember"]/div[3]/div/button
+    Capture Page Screenshot
+
+    # Verify the full main page loaded correctly.
+    # This snapshot uses LAYOUT match level to avoid differences in closing time text.
+    Eyes Check Window    Main Page    Fully    Match Level  LAYOUT
+
+
+    

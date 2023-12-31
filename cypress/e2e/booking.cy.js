@@ -19,7 +19,7 @@ describe('Booking', () => {
   .its('length')
   .then((numItems) => {
     const randomIndex = Math.floor(Math.random() * numItems);
-    cy.get('li.page-item').eq(randomIndex).find('a.page-link').click();
+    cy.get('li.page-item').eq(randomIndex).find('a.page-link').filter('[style="cursor: pointer"]').click();
   });
   cy.get('h4:not(.text-right)')
   .should('be.visible')
@@ -34,11 +34,11 @@ describe('Booking', () => {
   .type('2')
   cy.get('.ng2-flatpickr-input')
   .click()
-  cy.get('span[aria-label="December 23, 2023"]', { timeout: 10000 }) 
+  cy.get('span[aria-label="December 31, 2023"]', { timeout: 10000 }) 
   .should('exist')
   .should('be.visible')
   .click({ multiple: true, force: true });
-  cy.get('span[aria-label="December 28, 2023"]', { timeout: 10000 })
+  cy.get('span[aria-label="January 6, 2024"]', { timeout: 10000 })
   .should('exist')
   .should('be.visible')
   .click({ multiple: true, force: true});
@@ -56,7 +56,6 @@ describe('Booking', () => {
   cy.get('#user-bookings').click()
   cy.get('button.btn.btn-primary.mr-4', { timeout: 10000 }).should('exist');
   cy.window().then(win => win.close());
-
 
     })
 })

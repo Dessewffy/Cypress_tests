@@ -97,6 +97,7 @@ describe('AddNewHotelRoom', () => {
       
     
   });
+   //Todo:
 /*
     // Hibakezelés
   it("iMG URL error", () => {

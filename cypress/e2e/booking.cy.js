@@ -1,6 +1,6 @@
 ///<reference types="cypress"/>
 
-
+//Bejelentkeezés
 beforeEach(() => {
     cy.visit('http://hotel-v3.progmasters.hu');
     cy.get('a.nav-link').eq(1).click();
@@ -9,7 +9,7 @@ beforeEach(() => {
     cy.get('.btn-success').click();
   });
 
-
+                                                                  //Foglallás
 describe('Booking', () => {
     it('passes', ()=> {
     cy.get('.btn-outline-primary')

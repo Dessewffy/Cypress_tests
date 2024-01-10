@@ -139,17 +139,6 @@ Delete of the Bookingsű
   
 
 
-
-   # Click Element    //span[@aria-label="January 4, 2024"]
-    
-  
-
-
-    
-    #${hotels}    Get WebElements    //h4[@style="cursor: pointer"]
-    #${random_hotel}    Evaluate    random.choice($hotels)  random
-    #Wait Until Element Is Visible     ${random_hotel}    timeout=10s
-    #     #Click Element    ${random_hotel}
     
 
     

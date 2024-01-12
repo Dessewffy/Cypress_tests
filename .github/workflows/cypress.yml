@@ -1,11 +1,12 @@
-name: Chrome
+name: End-to-end tests
 on: push
 jobs:
-  chrome:
+  cypress-run:
     runs-on: ubuntu-22.04
-    name: E2E on Chrome
     steps:
-      - uses: actions/checkout@v4
-      - uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6

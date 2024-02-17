@@ -33,11 +33,11 @@ describe('Booking', () => {
   .type('2')
   cy.get('.ng2-flatpickr-input')
   .click()
-  cy.get('span[aria-label="Februar 20, 2024"]', { timeout: 10000 }) 
+  cy.get('span[aria-label="February 20, 2024"]', { timeout: 10000 }) 
   .should('exist')
   .should('be.visible')
   .click({ multiple: true, force: true });
-  cy.get('span[aria-label="Februar 26, 2024"]', { timeout: 10000 })
+  cy.get('span[aria-label="February 26, 2024"]', { timeout: 10000 })
   .should('exist')
   .should('be.visible')
   .click({ multiple: true, force: true});

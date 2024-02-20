@@ -1,7 +1,8 @@
 const roomNameList = ["Balatoni Álom", "Ébredő Hajnal", "Reneszánsz Csoda", "Keleti Lankák"];
 const roomTypeList = ["EGYAGYASSZOBA", "KETAGYASSZOBA", "KETAGYASTWINSZOBA", "HAROMAGYASSZOBA", "NEGYAGYASSZOBA", "TOBBAGYASSZOBA", "STUDIO", "APARTMAN", "LAKOSZTALY"];
-const min = 0; // a tartomány alsó határa
-const max = 99; // a tartomány felső határa
+//Min and max value for the booking (number of beds, nights, roomarea)
+const min = 0; 
+const max = 99; 
 
 const randomIndexRoomName = Math.floor(Math.random() * roomNameList.length);
 const randomIndexRoomType = Math.floor(Math.random() * roomTypeList.length);
@@ -14,7 +15,7 @@ const roomType = roomTypeList[randomIndexRoomType];
 const description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
 const imgURL = 'https://www.keparuhaz.hu/images/tmp/700/products/87/5387.jpg';
 
-// Belépés
+// Log in
 beforeEach(() => {
   cy.visit('http://hotel-v3.progmasters.hu');
   cy.get('a.nav-link').eq(1).click();
@@ -25,13 +26,13 @@ beforeEach(() => {
 
 describe('AddNewHotelRoom', () => {
   it('passes', () => {
-    // Új szoba gomb kiválasztása
+    // New room button 
     cy.get('.btn.btn-primary.btn-lg.btn-block')
       .click();
     cy.get('h2')
       .should('have.text', 'Szoba adatlap');
     
-    // Szoba adatai
+    // Data of the room
     cy.get('#roomName')
       .type(roomName);
     
@@ -56,42 +57,42 @@ describe('AddNewHotelRoom', () => {
       .type(imgURL);
     
     cy.get('.form-group [type="checkbox"]').then((checkboxes) => {
-      // Az elemek számának meghatározása
+      // List of the features Checkbox
       const numCheckboxes = checkboxes.length;
   
-      // Két véletlenszerű index kiválasztása
+      // Select 2 random index
       const randomIndex1 = Math.floor(Math.random() * numCheckboxes);
       let randomIndex2;
       do {
         randomIndex2 = Math.floor(Math.random() * numCheckboxes);
       } while (randomIndex2 === randomIndex1);
   
-      // Két checkbox kiválasztása
+      // Selection of the 2 random checkbox
       cy.get('.form-group [type="checkbox"]').eq(randomIndex1).check();
       cy.get('.form-group [type="checkbox"]').eq(randomIndex2).check();
     });
     
-    // Szoba hozzáadás elküldése
+    // Add room submit
     cy.get('.btn.btn-primary.my-buttons')
       .should('not.be.disabled')
       .click();
     
-    // Szoba létrejöttének ellenőrzése
+    // Checking of the new room
     cy.get('.card-title')
       .should('contain', roomName);
 
       cy.get('h6.card-subtitle.mb-2').invoke('text').then((text) => {
-        // Ellenőrzés a szöveg alapján
+        // Checking of the text
         expect(text).to.include(`Ágyak (férőhelyek) száma: ${numberOfBeds}`);
         expect(text).to.include(`Szobaterület: ${roomarea} m2`);
         expect(text).to.include(`Ár/éj : ${pricePerNight} Ft`);
       });
 
-    // Szoba törlése
+    // Delete room
     cy.get('.btn.btn-danger.btn-sm').each((button) => {
     cy.wrap(button).click({ force: true });
       
-    // A felugró ablakban lévő "Oké" gombra kattintás
+    // Click on the "OK" button in the pop-up window
     cy.contains('button.btn.btn-primary', 'Oké').click({ force: true });
       });
       
@@ -99,7 +100,7 @@ describe('AddNewHotelRoom', () => {
   });
    //Todo:
 /*
-    // Hibakezelés
+    // Errorhandling
   it("iMG URL error", () => {
     cy.on("fail", (err, runnable) => {
       cy.log(err.message);

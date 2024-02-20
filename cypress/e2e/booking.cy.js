@@ -1,5 +1,5 @@
 
-//Bejelentkeezés
+//Log in
 beforeEach(() => {
     cy.visit('http://hotel-v3.progmasters.hu');
     cy.get('a.nav-link').eq(1).click();
@@ -8,12 +8,12 @@ beforeEach(() => {
     cy.get('.btn-success').click();
   });
 
-                                                                  //Foglallás
+//Booking
 describe('Booking', () => {
     it('passes', ()=> {
     cy.get('.btn-outline-primary')
     .click()
-// Random oldalon, random hotel kiválasztása
+// Choose a random page with a random hotel
     cy.get('li.page-item')
   .its('length')
   .then((numItems) => {
@@ -28,7 +28,7 @@ describe('Booking', () => {
     const randomIndex = Math.floor(Math.random() * numItems);
   cy.get('h4:not(.text-right)').eq(randomIndex).click();
   });
-//Foglalás paraméterei
+//Details of the booking
   cy.get('#numberOfGuests')
   .type('2')
   cy.get('.ng2-flatpickr-input')
@@ -44,12 +44,12 @@ describe('Booking', () => {
   cy.get('label[class=ng-star-inserted]')
   .eq(0).click()
 
-  //Foglalás véglegesítése
+  //Accept ÁSZF and sbumit
   cy.get('.btn-warning').click()
   cy.get('[formcontrolname="aSZF"]').click()
   cy.get('.btn-primary').click()
 
-// Foglalás ellenőrzése
+// Check the booking
   cy.get('h5:contains("Sikeres foglalás")')
   cy.get('.btn-primary').click()
   cy.get('#user-bookings').click()
